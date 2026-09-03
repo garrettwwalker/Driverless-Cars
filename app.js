@@ -98,7 +98,9 @@
     liveMedicalPerSec = medicalPerSecondPreventable(params);
     liveEpoch = performance.now();
     counterRate.textContent = "+" + (livePerSec * 3600).toFixed(1) + "/hr";
-    miniPerDay.textContent = fmtInt(livePerSec * 86400);
+    var shareNow = autonomousShare(CUR_YEAR, params.startYear, params.yearsTo50);
+    var injuriesPerDay = (DATA.crashInjuries.annual / 365.25) * shareNow * params.reduction;
+    miniPerDay.textContent = fmtInt(injuriesPerDay);
   }
 
   function frame(t) {
@@ -428,6 +430,7 @@
     add("Road deaths", DATA.usTrafficDeaths.source, DATA.usTrafficDeaths.sourceUrl);
     add("Share of crashes with driver as critical reason", DATA.humanError.source, DATA.humanError.sourceUrl);
     add("Medical cost of crash injuries", DATA.crashMedicalCost.source, DATA.crashMedicalCost.sourceUrl);
+    add("People injured in crashes", DATA.crashInjuries.source, DATA.crashInjuries.sourceUrl);
     add("Waymo safety record", DATA.waymo.source, DATA.waymo.sourceUrl);
     add("Independent check (IIHS)", DATA.waymo.thirdParty.source, DATA.waymo.thirdParty.sourceUrl);
     add("Peer-reviewed comparison", DATA.waymo.peerReviewed.source, DATA.waymo.peerReviewed.sourceUrl);

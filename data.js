@@ -54,6 +54,18 @@ window.DATA = {
     sourceUrl: "https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813403",
   },
 
+  /* ---- People injured in traffic crashes (NHTSA annual crash summary) ---- */
+  crashInjuries: {
+    year: 2023,
+    annual: 2_442_581,
+    text:
+      "NHTSA estimated 2,442,581 people injured in police-reported motor vehicle traffic " +
+      "crashes in 2023 — roughly five every minute. This is all reported injuries; NHTSA " +
+      "does not publish a national count for the 'serious injury' subset.",
+    source: "NHTSA, 'Summary of Motor Vehicle Traffic Crashes: 2023 Data' (DOT HS 813 762, Oct 2025).",
+    sourceUrl: "https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813762",
+  },
+
   /* ---- Waymo's published safety record ---- */
   waymo: {
     asOf: "March 2026",
@@ -341,6 +353,7 @@ window.DATA = {
       "It assumes autonomous miles are at least as safe as Waymo's published record generalizes — across weather, road types, and cities where that is not yet demonstrated.",
       "It does not model a faster rollout's own new risks, the pace at which vehicles and infrastructure could realistically be replaced, or second-order effects on total miles driven.",
       "The medical-bill tally applies NHTSA's 2019 medical-cost estimate ($30.9B/yr) as a flat running rate, scaled by the same share and reduction assumptions; it is not inflation-adjusted and treats every year's crash mix as 2019's.",
+      "The injuries-per-day figure uses NHTSA's 2023 count of all people injured in crashes (2.44M) — not only serious injuries, which NHTSA does not total nationally — scaled by the same share and reduction assumptions.",
       "Real deployment involves genuine trade-offs this page doesn't score: driving jobs, liability, data and privacy, and accessibility.",
     ],
   },
