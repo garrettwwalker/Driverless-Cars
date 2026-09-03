@@ -82,7 +82,18 @@ presented in the UI as an adjustable estimate, never as measured fact — keep i
   id="panel-x">` in `index.html`, write `bindX()`, call it from the init block. `bindTabs()`
   wires routing and `#hash` deep-links automatically.
 
-## Git
+## Git — commit and push as you work
 
-Plain `git push` **hangs** in this environment (no credential helper → silent prompt). It is
-fixed once per machine with `gh auth setup-git`. Commits are kept small and single-purpose.
+**Do not let finished work sit uncommitted.** As you complete each self-contained change,
+commit it and push it to GitHub (`origin/main`, https://github.com/garrettwwalker/Driverless-Cars),
+so nothing is ever lost between sessions.
+
+- Commit at every natural stopping point — a working feature, a fix, a content update — not
+  in one big lump at the end.
+- Keep commits **small and single-purpose**, with a clear imperative subject line (e.g.
+  `Fix unterminated string that broke the whole script`, not `updates`). Add a body when the
+  why isn't obvious from the subject.
+- **Push after committing** (`git push origin main`). Don't batch several commits locally and
+  forget to push.
+- Plain `git push` **hangs** in this environment (no credential helper → silent prompt). It
+  is fixed once per machine with `gh auth setup-git`; if a push hangs, run that first.
