@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Standing Cost — what we accept by not deploying driverless cars</title>
+  <meta
+    name="description"
+    content="A running estimate of the road deaths, wasted time, and city land we passively accept every year that autonomous vehicles are held back."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-head">
+    <div class="wrap">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>The Standing Cost</span>
+      </div>
+      <nav class="tabs" id="tabs" aria-label="Sections">
+        <button class="tab is-active" data-tab="toll">The toll</button>
+        <button class="tab" data-tab="time">Wasted time</button>
+        <button class="tab" data-tab="space">Reclaimed space</button>
+        <button class="tab" data-tab="record">The Waymo record</button>
+        <button class="tab" data-tab="cities">Cities</button>
+        <button class="tab" data-tab="method">Method &amp; sources</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ================= TOLL ================= -->
+    <section class="panel is-active" id="panel-toll">
+      <p class="kicker">The passive trade-off</p>
+      <h1 class="hero-h1">
+        Every year we wait, the bill comes due in lives.
+      </h1>
+      <p class="lede">
+        The United States loses roughly <strong>40,000 people a year</strong> on its roads, and the
+        driver is assigned the critical reason in about <strong>94%</strong> of crashes. Below is an
+        estimate of how many of those deaths a faster rollout of driverless cars could have prevented —
+        counting from the start of a year you choose. It is a scenario, not a measurement. The
+        assumptions are yours to move.
+      </p>
+
+      <div class="counter-card">
+        <div class="counter-label">Estimated preventable road deaths since
+          <span id="since-year">2021</span>
+        </div>
+        <div class="counter-value" id="big-counter">0</div>
+        <div class="counter-sub">
+          <span id="counter-rate">…</span> · updates live from the current U.S. fatality rate
+        </div>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <div class="mini-num" id="mini-page">0</div>
+          <div class="mini-cap">preventable deaths since you opened this page</div>
+        </div>
+        <div class="mini">
+          <div class="mini-num" id="mini-total-page">0</div>
+          <div class="mini-cap">total U.S. road deaths since you opened this page</div>
+        </div>
+        <div class="mini">
+          <div class="mini-num" id="mini-perday">0</div>
+          <div class="mini-cap">preventable deaths per day, at today's assumptions</div>
+        </div>
+      </div>
+
+      <div class="controls" id="controls">
+        <h2 class="controls-title">Your assumptions</h2>
+        <div class="control">
+          <label for="c-start">If rapid deployment had begun in…</label>
+          <input type="range" id="c-start" min="2018" max="2024" step="1" value="2021" />
+          <output id="o-start">2021</output>
+        </div>
+        <div class="control">
+          <label for="c-ramp">…and reached half of all miles driven within…</label>
+          <input type="range" id="c-ramp" min="2" max="8" step="1" value="3" />
+          <output id="o-ramp">3 years</output>
+        </div>
+        <div class="control">
+          <label for="c-red">…with this share of fatal-injury crashes avoided on autonomous miles</label>
+          <input type="range" id="c-red" min="50" max="92" step="1" value="85" />
+          <output id="o-red">85%</output>
+        </div>
+        <p class="controls-foot">
+          Anchor points: Waymo reports <strong>92%</strong> fewer serious-or-fatal-injury crashes over
+          170M+ driverless miles; an IIHS analysis puts Waymo at roughly a third of the human crash
+          rate per mile. <a href="#" data-jump="method">See the full method →</a>
+        </p>
+      </div>
+
+      <figure class="chart-card">
+        <figcaption>U.S. road deaths per year, and the slice the model treats as preventable</figcaption>
+        <div id="chart-deaths" class="chart"></div>
+        <div class="legend">
+          <span class="lg lg-actual">Recorded / estimated deaths</span>
+          <span class="lg lg-prevent">Preventable under your assumptions</span>
+        </div>
+      </figure>
+
+      <details class="breakdown">
+        <summary>Show the year-by-year arithmetic</summary>
+        <div id="breakdown-table"></div>
+      </details>
+    </section>
+
+    <!-- ================= TIME ================= -->
+    <section class="panel" id="panel-time">
+      <p class="kicker">Wasted time</p>
+      <h2 class="h2">A full work week, gone, every year.</h2>
+      <p class="lede">
+        The typical U.S. driver lost <strong id="t-hours">49</strong> hours to congestion in 2025 —
+        worth about <strong id="t-cost">$894</strong> in lost time each, and
+        <strong id="t-total">$85&nbsp;billion</strong> nationally. Autonomous fleets don't repeal
+        traffic, but smoother merging, no circling for parking, and higher road throughput are among
+        the reasons cities model congestion falling rather than rising.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num" id="t-yourhours">—</div>
+          <div class="stat-cap">hours you'll lose over <span id="t-years-label">40</span> years of driving</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="t-yourdays">—</div>
+          <div class="stat-cap">that's this many full days</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="t-yourcost">—</div>
+          <div class="stat-cap">value of that time, at the 2025 rate</div>
+        </div>
+      </div>
+
+      <div class="control solo">
+        <label for="c-years">Years you expect to keep driving</label>
+        <input type="range" id="c-years" min="1" max="60" step="1" value="40" />
+        <output id="o-years">40 years</output>
+      </div>
+
+      <figure class="chart-card">
+        <figcaption>Hours per driver lost to congestion, 2025</figcaption>
+        <div id="chart-time" class="chart"></div>
+      </figure>
+    </section>
+
+    <!-- ================= SPACE ================= -->
+    <section class="panel" id="panel-space">
+      <p class="kicker">Reclaimed space</p>
+      <h2 class="h2">We paved a second country for parked cars.</h2>
+      <p class="lede">
+        Researchers put the U.S. parking supply somewhere between
+        <strong id="s-low">700 million</strong> and <strong id="s-high">2 billion</strong> spaces —
+        <strong>2.5 to 7</strong> for every vehicle. In some North American cities, parking alone
+        covers about <strong id="s-share">14%</strong> of incorporated land before a single road is
+        counted; downtown Los Angeles is closer to <strong id="s-la">24%</strong>. A shared
+        autonomous fleet needs a fraction of it — cars that don't sit still 95% of the day don't need
+        somewhere to sit.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num" id="s-area">—</div>
+          <div class="stat-cap">land under parking, at <span id="s-area-mode">the low estimate</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="s-compare">—</div>
+          <div class="stat-cap">roughly equal to this</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="s-cruise">30%</div>
+          <div class="stat-cap">of downtown traffic is cars hunting for a spot (Shoup)</div>
+        </div>
+      </div>
+
+      <div class="control solo">
+        <label for="c-spaces">Where in the estimate range do you want to sit?</label>
+        <input type="range" id="c-spaces" min="0" max="100" step="1" value="0" />
+        <output id="o-spaces">low</output>
+      </div>
+
+      <div class="grid-viz" id="grid-viz" aria-hidden="true"></div>
+      <p class="grid-cap">Each square ≈ 1% of the parking land shown above.</p>
+    </section>
+
+    <!-- ================= RECORD ================= -->
+    <section class="panel" id="panel-record">
+      <p class="kicker">The Waymo record</p>
+      <h2 class="h2">The safety case is no longer hypothetical.</h2>
+      <p class="lede">
+        As of <strong id="w-asof">March 2026</strong>, Waymo reported more than
+        <strong id="w-miles">170 million</strong> fully autonomous miles — about
+        <strong id="w-lifetimes">200</strong> human lifetimes of driving — and now covers roughly
+        <strong id="w-week">4 million</strong> miles a week. Its comparison is against human-driver
+        crash rates in the same cities.
+      </p>
+
+      <div class="big-stats" id="w-stats"></div>
+
+      <div class="callout">
+        <div class="callout-num" id="w-every">every 8 days</div>
+        <div class="callout-text">
+          At current scale, the reduction is equivalent to preventing roughly one serious-injury
+          crash this often — quietly, with no headline.
+        </div>
+      </div>
+
+      <div class="source-cards" id="w-sources"></div>
+    </section>
+
+    <!-- ================= CITIES ================= -->
+    <section class="panel" id="panel-cities">
+      <p class="kicker">Cities</p>
+      <h2 class="h2">Where the brakes are on.</h2>
+      <p class="lede">
+        Deployment is a local decision as much as a technical one. Three of the country's densest,
+        highest-congestion cities — the places with the most to gain — have been among the most
+        restrictive. Their officials, quoted below in their public capacities, with links to the
+        reporting.
+      </p>
+
+      <div class="city-tabs" id="city-tabs"></div>
+      <div id="city-body"></div>
+    </section>
+
+    <!-- ================= METHOD ================= -->
+    <section class="panel" id="panel-method">
+      <p class="kicker">Method &amp; sources</p>
+      <h2 class="h2">How the numbers are built.</h2>
+
+      <div class="method-block">
+        <h3>The preventable-deaths model</h3>
+        <p>For each year from your chosen start year to now, the model computes:</p>
+        <p class="formula">
+          preventable(year) = recorded_deaths(year) × autonomous_share(year) × crash_reduction
+        </p>
+        <ul>
+          <li>
+            <strong>recorded_deaths</strong> — NHTSA FARS final counts for 2014–2023; NHTSA early
+            estimates for 2024 (39,345) and 2025 (≈36,640). The current year is prorated by the
+            fraction elapsed.
+          </li>
+          <li>
+            <strong>autonomous_share</strong> — a straight-line ramp from 0 at your start year to 50%
+            after the number of years you set, continuing at the same slope and capped at 95%. Real
+            adoption would not be a straight line.
+          </li>
+          <li>
+            <strong>crash_reduction</strong> — the slider you set, defaulting to 85%. Waymo's own
+            figure for serious-or-fatal-injury crashes is 92%; an IIHS analysis implies roughly 68%
+            fewer crashes per mile.
+          </li>
+        </ul>
+        <p class="warn">This is a what-if, and it is deliberately simple. Specifically:</p>
+        <ul id="method-caveats"></ul>
+      </div>
+
+      <div class="method-block">
+        <h3>Every source on this page</h3>
+        <div id="source-list"></div>
+      </div>
+
+      <div class="method-block">
+        <h3>On the quotes</h3>
+        <p>
+          Every quotation in the Cities section is reproduced verbatim from the linked reporting,
+          attributed to the speaker and their role at the time, with the date and a one-line note on
+          the setting. One item (Cathy Chase, D.C.) is marked as a paraphrase because no verbatim
+          quote was available. If you spot an error, it should be fixed in
+          <code>data.js</code>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <p>
+        An advocacy project. The framing is a point of view; the underlying figures are sourced and
+        the model is open. Last reviewed <span id="foot-date">2026-09-03</span>.
+      </p>
+      <p class="foot-dim">
+        Built as a static site — <code>index.html</code>, <code>styles.css</code>,
+        <code>app.js</code>, <code>data.js</code>. Numbers live in <code>data.js</code>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
