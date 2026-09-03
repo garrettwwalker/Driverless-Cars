@@ -385,11 +385,24 @@
       var metrics = '<div><b>' + ct.congestionHours + " hrs</b>lost to congestion / driver / yr</div>";
       if (ct.congestionCostPerDriver) metrics += '<div><b>$' + fmtInt(ct.congestionCostPerDriver) + "</b>cost of that time / driver</div>";
       if (ct.congestionCityCost) metrics += '<div><b>' + fmtUSD(ct.congestionCityCost) + "</b>citywide, per year</div>";
+      if (ct.casualties) {
+        var cz = ct.casualties;
+        metrics += '<div><b>' + fmtInt(cz.deaths.count) + "</b>traffic deaths (" + cz.deaths.year + ")</div>";
+        metrics += '<div><b>' + fmtInt(cz.injuries.count) + "</b>" + cz.injuries.label + " (" + cz.injuries.year + ")</div>";
+      }
+
+      var srcs = '<a href="' + ct.statusSourceUrl + '" target="_blank" rel="noopener">Status ↗</a>';
+      if (ct.casualties) {
+        srcs += ' · <a href="' + ct.casualties.deaths.sourceUrl + '" target="_blank" rel="noopener">Deaths ↗</a>';
+        if (ct.casualties.injuries.sourceUrl !== ct.casualties.deaths.sourceUrl) {
+          srcs += ' · <a href="' + ct.casualties.injuries.sourceUrl + '" target="_blank" rel="noopener">Injuries ↗</a>';
+        }
+      }
 
       var html = '<div class="city-status"><h3>' + ct.name + " — status</h3>" +
         '<div class="city-metrics">' + metrics + "</div>" +
         "<p>" + ct.status + "</p>" +
-        '<p class="src"><a href="' + ct.statusSourceUrl + '" target="_blank" rel="noopener">Source ↗</a></p></div>';
+        '<p class="src">' + srcs + "</p></div>";
 
       ct.quotes.forEach(function (q) {
         html += '<div class="quote"><blockquote>' + q.text + "</blockquote>" +
@@ -419,6 +432,10 @@
     add("Parking supply and land use", DATA.parking.source, DATA.parking.sourceUrl);
     DATA.cities.forEach(function (ct) {
       add(ct.name + " — deployment status", "City / reporting", ct.statusSourceUrl);
+      if (ct.casualties) {
+        add(ct.name + " — traffic deaths", ct.casualties.deaths.source, ct.casualties.deaths.sourceUrl);
+        add(ct.name + " — traffic injuries", ct.casualties.injuries.source, ct.casualties.injuries.sourceUrl);
+      }
     });
     $("#source-list").innerHTML = all.map(function (o) {
       return '<div class="sl"><b>' + o.b + "</b>" + o.s + ' — <a href="' + o.u + '" target="_blank" rel="noopener">' + o.u + "</a></div>";

@@ -125,8 +125,23 @@ window.DATA = {
       id: "nyc",
       name: "New York City",
       congestionHours: 102,
-      congestionCostPerDriver: 1879,
-      congestionCityCost: 9_700_000_000,
+      congestionCostPerDriver: null,
+      congestionCityCost: null,
+      casualties: {
+        deaths: {
+          count: 253,
+          year: 2024,
+          source: "NYC DOT, year-end traffic-fatality release (Jan 2, 2026).",
+          sourceUrl: "https://www.nyc.gov/html/dot/html/pr2026/traffic-deaths-reach-all-time-low.shtml",
+        },
+        injuries: {
+          count: 3031,
+          year: 2024,
+          label: "people seriously injured",
+          source: "NYC DOT, year-end traffic-fatality release (Jan 2, 2026).",
+          sourceUrl: "https://www.nyc.gov/html/dot/html/pr2026/traffic-deaths-reach-all-time-low.shtml",
+        },
+      },
       status:
         "Testing only, with a trained safety driver required behind the wheel at all times. " +
         "The city opened its permit program in 2024, calling it the nation's toughest. Waymo " +
@@ -182,11 +197,26 @@ window.DATA = {
       congestionHours: 83,
       congestionCostPerDriver: null,
       congestionCityCost: null,
+      casualties: {
+        deaths: {
+          count: 16,
+          year: 2024,
+          source: "City of Boston, Vision Zero Fatality Records (Analyze Boston open data).",
+          sourceUrl: "https://data.boston.gov/dataset/vision-zero-fatality-records",
+        },
+        injuries: {
+          count: 68,
+          year: 2023,
+          label: "serious-injury crashes",
+          source: "MassDOT IMPACT Crash Data Portal, City of Boston.",
+          sourceUrl: "https://apps.crashdata.dot.mass.gov/cdp/home",
+        },
+      },
       status:
         "Testing only. Boston has run a deliberately small autonomous-vehicle program since 2016. " +
         "The Wu administration favors moving slowly; in July 2025 a majority of city councilors " +
         "raised concerns at a hearing and floated an ordinance requiring further study and a new " +
-        "advisory commission before any cars without a driver. Waymo mapped Bo-area streets in " +
+        "advisory commission before any cars without a driver. Waymo mapped Boston-area streets in " +
         "2025–26 but every vehicle was human-driven.",
       statusSourceUrl: "https://www.wgbh.org/news/local/2025-07-24/driverless-cars-run-into-resistance-at-boston-city-council",
       quotes: [
@@ -236,6 +266,21 @@ window.DATA = {
       congestionHours: 70,
       congestionCostPerDriver: null,
       congestionCityCost: null,
+      casualties: {
+        deaths: {
+          count: 52,
+          year: 2023,
+          source: "DDOT Vision Zero crash dashboard (MPD data via Open Data DC); reported by The Washington Post, Aug. 23, 2024.",
+          sourceUrl: "https://www.washingtonpost.com/dc-md-va/2024/08/23/vision-zero-dc-traffic-deaths/",
+        },
+        injuries: {
+          count: 363,
+          year: 2023,
+          label: "people with major injuries",
+          source: "DDOT Vision Zero crash dashboard; reported by The Washington Post, Aug. 23, 2024.",
+          sourceUrl: "https://www.washingtonpost.com/dc-md-va/2024/08/23/vision-zero-dc-traffic-deaths/",
+        },
+      },
       status:
         "No driverless service. District law still requires a licensed human driver inside an " +
         "autonomous vehicle. The Council's Committee on Transportation and the Environment is " +
