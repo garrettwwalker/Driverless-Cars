@@ -315,7 +315,7 @@
           '<div class="attr"><b>' + q.who + "</b> — " + q.role +
           (q.paraphrase ? '<span class="tag">paraphrase</span>' : "") + "</div>" +
           '<div class="ctx">' + q.when + " · " + q.context +
-          ' <a href="' + q.url + '" target="_blank" rel="noopener">reporting ↗</a></div></div>";
+          ' <a href="' + q.url + '" target="_blank" rel="noopener">reporting ↗</a></div></div>';
       });
       bodyEl.innerHTML = html;
     }

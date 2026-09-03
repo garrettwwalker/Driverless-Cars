@@ -17,6 +17,23 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <script>
+    // Dev aid: surface any script error on the page instead of only the console.
+    window.addEventListener("error", function (e) {
+      var bar = document.getElementById("errbar");
+      if (!bar) {
+        bar = document.createElement("div");
+        bar.id = "errbar";
+        bar.style.cssText =
+          "position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#3a0d0d;" +
+          "color:#ffc4c4;font:12px/1.5 ui-monospace,monospace;padding:10px 14px;" +
+          "white-space:pre-wrap;max-height:45vh;overflow:auto;border-top:2px solid #ff5a4d";
+        (document.body || document.documentElement).appendChild(bar);
+      }
+      var where = (e.filename || "").split("/").pop() + ":" + e.lineno + ":" + e.colno;
+      bar.textContent += "[JS error] " + (e.message || e.error) + "  @ " + where + "\n";
+    });
+  </script>
   <div class="grain" aria-hidden="true"></div>
 
   <header class="site-head">
