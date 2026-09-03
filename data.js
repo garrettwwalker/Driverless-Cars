@@ -59,6 +59,8 @@ window.DATA = {
       text:
         "An Insurance Institute for Highway Safety analysis of ~50M+ Waymo miles found " +
         "human drivers involved in about 4.06 crashes per million miles versus 1.28 for Waymo.",
+      humanCrashesPerMillionMiles: 4.06,
+      waymoCrashesPerMillionMiles: 1.28,
       source: "IIHS analysis, reported July 2026.",
       sourceUrl: "https://www.iihs.org/",
     },

@@ -302,6 +302,37 @@ main { padding: 44px 0 80px; }
 }
 .lg-actual::before { background: #2b3038; }
 .lg-prevent::before { background: var(--toll); }
+.lg-picto-base::before { background: #4b525c; }
+
+/* ---------- pictogram (isotype) charts ---------- */
+.picto-box svg.picto { display: block; width: 100%; height: auto; }
+.picto .pg-base { fill: #4b525c; }
+.picto .pg-hi { fill: var(--toll); }
+.picto .pg-human { fill: #6b7078; }
+.picto .pg-waymo { fill: var(--green); }
+
+.picto-compare { display: flex; flex-direction: column; gap: 16px; }
+.pc-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  gap: 14px;
+}
+/* Fixed icon size so the two rows compare like-for-like (counts differ, not scale). */
+.pc-row .picto-box { overflow-x: auto; }
+.pc-row svg.picto { width: auto; height: 26px; max-width: none; }
+.pc-label { font-size: 13px; color: var(--text-dim); }
+.pc-val {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 720px) {
+  .pc-row { grid-template-columns: 1fr auto; }
+  .pc-row .picto-box { grid-column: 1 / -1; order: 3; }
+}
 
 /* ---------- breakdown ---------- */
 .breakdown {

@@ -118,6 +118,19 @@
       </div>
 
       <figure class="chart-card">
+        <figcaption>
+          One year of U.S. road deaths — <span id="picto-year">2025</span>. Each figure is
+          <span id="picto-per">250</span> people; the red figures are the share the model treats as
+          preventable at your assumptions.
+        </figcaption>
+        <div id="picto-toll" class="chart picto-box"></div>
+        <div class="legend">
+          <span class="lg lg-picto-base">Road deaths in the year (<span id="picto-total">0</span>)</span>
+          <span class="lg lg-prevent">Preventable (<span id="picto-prevent">0</span>)</span>
+        </div>
+      </figure>
+
+      <figure class="chart-card">
         <figcaption>U.S. road deaths per year, and the slice the model treats as preventable</figcaption>
         <div id="chart-deaths" class="chart"></div>
         <div class="legend">
@@ -231,6 +244,25 @@
           crash this often — quietly, with no headline.
         </div>
       </div>
+
+      <figure class="chart-card">
+        <figcaption>
+          Crashes per million miles — IIHS analysis of Waymo miles versus human drivers in the same
+          cities. Each car ≈ <span id="pc-per">0.2</span> crashes per million miles.
+        </figcaption>
+        <div class="picto-compare">
+          <div class="pc-row">
+            <span class="pc-label">Human drivers</span>
+            <div id="picto-human" class="chart picto-box"></div>
+            <span class="pc-val" id="pc-human">—</span>
+          </div>
+          <div class="pc-row">
+            <span class="pc-label">Waymo</span>
+            <div id="picto-waymo" class="chart picto-box"></div>
+            <span class="pc-val" id="pc-waymo">—</span>
+          </div>
+        </div>
+      </figure>
 
       <div class="source-cards" id="w-sources"></div>
     </section>

@@ -149,6 +149,64 @@
     el.innerHTML = svg.join("");
   }
 
+  /* ---------- SVG pictogram (isotype) chart ---------- */
+  var GLYPH = {
+    person:
+      "M12 2.4a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zM8.7 8.9h6.6c1 0 1.8.7 2 1.7l1 5.1c.1.7-.4 1.3-1.1 1.3-.5 " +
+      "0-1-.4-1.1-.9L16 13v9.1c0 .6-.5 1.1-1.1 1.1s-1.1-.5-1.1-1.1V17h-1.6v5.1c0 .6-.5 1.1-1.1 1.1s-1.1-.5-1.1-1.1V13" +
+      "l-.4 3.2c-.1.5-.6.9-1.1.9-.7 0-1.2-.6-1.1-1.3l1-5.1c.2-1 1-1.7 2-1.7z",
+    car:
+      "M4.4 12.2l1.5-3.8C6.3 7.3 7.3 6.6 8.5 6.6h7c1.2 0 2.2.7 2.6 1.8l1.5 3.8c.8.3 1.4 1.1 1.4 2v3.4c0 .5-.4.9-.9.9" +
+      "h-1.3a2 2 0 0 1-4 0H8.7a2 2 0 0 1-4 0H3.4c-.5 0-.9-.4-.9-.9v-3.4c0-.9.6-1.7 1.4-2zm2-.3h11.2l-1-2.6c-.2-.5-.6-.8" +
+      "-1.1-.8h-7c-.5 0-.9.3-1.1.8l-1 2.6z",
+  };
+
+  // opts: { value, highlight?, perIcon, cols?, glyph?, baseClass?, hiClass? }
+  function pictoChart(el, opts) {
+    var per = opts.perIcon;
+    var cols = opts.cols || 30;
+    var total = Math.max(1, Math.round(opts.value / per));
+    var hi = opts.highlight != null ? Math.max(0, Math.min(total, Math.round(opts.highlight / per))) : 0;
+    var glyph = opts.glyph || "person";
+    var baseClass = opts.baseClass || "pg-base";
+    var hiClass = opts.hiClass || "pg-hi";
+    var cell = 24, gap = 4, step = cell + gap;
+    var rows = Math.ceil(total / cols);
+    var W = Math.min(total, cols) * step - gap;
+    var H = rows * step - gap;
+    var uid = "pg" + (pictoChart._n = (pictoChart._n || 0) + 1);
+    var label = opts.label ? ' aria-label="' + opts.label + '"' : "";
+    var out = ['<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="xMinYMin meet" class="picto" role="img"' + label + ">"];
+    out.push('<defs><path id="' + uid + '" d="' + GLYPH[glyph] + '"/></defs>');
+    for (var i = 0; i < total; i++) {
+      var x = (i % cols) * step;
+      var y = Math.floor(i / cols) * step;
+      out.push('<use href="#' + uid + '" x="' + x + '" y="' + y + '" class="pg ' +
+        (i < hi ? hiClass : baseClass) + '"/>');
+    }
+    out.push("</svg>");
+    el.innerHTML = out.join("");
+  }
+
+  var PICTO_PER_PERSON = 250;
+  function renderTollPicto() {
+    var last = series[series.length - 1];
+    var share = autonomousShare(last.year, params.startYear, params.yearsTo50);
+    var prevent = last.deaths * share * params.reduction;
+    pictoChart($("#picto-toll"), {
+      value: last.deaths,
+      highlight: prevent,
+      perIcon: PICTO_PER_PERSON,
+      cols: 30,
+      label: fmtInt(last.deaths) + " U.S. road deaths in " + last.year + ", of which about " +
+        fmtInt(prevent) + " are preventable under the current assumptions",
+    });
+    $("#picto-year").textContent = last.year + (last.estimate ? " (est.)" : "");
+    $("#picto-per").textContent = PICTO_PER_PERSON;
+    $("#picto-total").textContent = fmtInt(last.deaths);
+    $("#picto-prevent").textContent = fmtInt(prevent);
+  }
+
   function renderDeathsChart() {
     var startShown = 2019;
     var data = [];
@@ -191,6 +249,7 @@
       $("#o-ramp").textContent = cr.value + (cr.value === "1" ? " year" : " years");
       $("#o-red").textContent = cd.value + "%";
       recomputeLive();
+      renderTollPicto();
       renderDeathsChart();
       renderBreakdown();
     }
@@ -282,6 +341,20 @@
     $("#w-sources").innerHTML = srcs.map(function (o) {
       return '<div class="sc">' + o.t + ' <a href="' + o.u + '" target="_blank" rel="noopener">' + o.s + "</a></div>";
     }).join("");
+
+    var tp = w.thirdParty;
+    var perCrash = 0.2;
+    pictoChart($("#picto-human"), {
+      value: tp.humanCrashesPerMillionMiles, perIcon: perCrash, cols: 24, glyph: "car", baseClass: "pg-human",
+      label: "Human drivers: " + tp.humanCrashesPerMillionMiles.toFixed(2) + " crashes per million miles",
+    });
+    pictoChart($("#picto-waymo"), {
+      value: tp.waymoCrashesPerMillionMiles, perIcon: perCrash, cols: 24, glyph: "car", baseClass: "pg-waymo",
+      label: "Waymo: " + tp.waymoCrashesPerMillionMiles.toFixed(2) + " crashes per million miles",
+    });
+    $("#pc-human").textContent = tp.humanCrashesPerMillionMiles.toFixed(2);
+    $("#pc-waymo").textContent = tp.waymoCrashesPerMillionMiles.toFixed(2);
+    $("#pc-per").textContent = perCrash.toFixed(1);
   }
 
   /* ---------- cities section ---------- */
