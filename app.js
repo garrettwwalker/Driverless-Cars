@@ -112,9 +112,12 @@
     bigCounter.textContent = fmtInt(shown);
 
     var openSecs = (Date.now() - PAGE_OPEN) / 1000;
-    miniPage.textContent = openSecs * livePerSec < 1
-      ? (openSecs * livePerSec).toFixed(2)
-      : fmtInt(openSecs * livePerSec);
+    var dayStart = new Date();
+    dayStart.setHours(0, 0, 0, 0); // local midnight, in the viewer's own time zone
+    var secsToday = (Date.now() - dayStart.getTime()) / 1000;
+    miniPage.textContent = secsToday * livePerSec < 1
+      ? (secsToday * livePerSec).toFixed(2)
+      : fmtInt(secsToday * livePerSec);
     miniMedical.textContent = "$" + fmtInt(openSecs * liveMedicalPerSec);
 
     requestAnimationFrame(frame);
