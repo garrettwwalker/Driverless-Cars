@@ -148,8 +148,8 @@ main { padding: 44px 0 80px; }
 
 /* ---------- counter ---------- */
 .counter-card {
-  background: linear-gradient(180deg, var(--toll-soft), var(--bg-card) 60%);
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #4a1f1c, #3a1613);
+  border: 1px solid #5c2723;
   border-radius: var(--radius);
   padding: 34px 28px;
   text-align: center;
