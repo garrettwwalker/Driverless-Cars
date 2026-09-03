@@ -41,6 +41,19 @@ window.DATA = {
     sourceUrl: "https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812115",
   },
 
+  /* ---- Medical cost of crash injuries (NHTSA economic-impact study) ---- */
+  crashMedicalCost: {
+    year: 2019,
+    annualUSD: 30_900_000_000,
+    text:
+      "NHTSA's economic-impact study put the present and future medical costs of motor " +
+      "vehicle crash injuries in 2019 at $30.9 billion — 9.1% of the $339.8 billion total " +
+      "economic cost of crashes that year.",
+    source:
+      "NHTSA, 'The Economic and Societal Impact of Motor Vehicle Crashes, 2019 (Revised)' (DOT HS 813 403, Feb 2023).",
+    sourceUrl: "https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813403",
+  },
+
   /* ---- Waymo's published safety record ---- */
   waymo: {
     asOf: "March 2026",
@@ -282,6 +295,7 @@ window.DATA = {
       "This is a what-if model, not a measurement. It multiplies real road-death counts by an assumed share of miles driven autonomously and an assumed crash-reduction rate.",
       "It assumes autonomous miles are at least as safe as Waymo's published record generalizes — across weather, road types, and cities where that is not yet demonstrated.",
       "It does not model a faster rollout's own new risks, the pace at which vehicles and infrastructure could realistically be replaced, or second-order effects on total miles driven.",
+      "The medical-bill tally applies NHTSA's 2019 medical-cost estimate ($30.9B/yr) as a flat running rate, scaled by the same share and reduction assumptions; it is not inflation-adjusted and treats every year's crash mix as 2019's.",
       "Real deployment involves genuine trade-offs this page doesn't score: driving jobs, liability, data and privacy, and accessibility.",
     ],
   },

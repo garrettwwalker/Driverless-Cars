@@ -72,24 +72,30 @@
     var shareNow = autonomousShare(CUR_YEAR, p.startYear, p.yearsTo50);
     return (currentAnnualRate / SECONDS_PER_YEAR) * shareNow * p.reduction;
   }
-  var perSecondTotal = currentAnnualRate / SECONDS_PER_YEAR;
+  // Medical bills attributable to the preventable slice of crashes, per second.
+  function medicalPerSecondPreventable(p) {
+    var shareNow = autonomousShare(CUR_YEAR, p.startYear, p.yearsTo50);
+    return (DATA.crashMedicalCost.annualUSD / SECONDS_PER_YEAR) * shareNow * p.reduction;
+  }
 
   /* ---------- live counters ---------- */
   var bigCounter = $("#big-counter");
   var counterRate = $("#counter-rate");
   var miniPage = $("#mini-page");
-  var miniTotalPage = $("#mini-total-page");
+  var miniMedical = $("#mini-medical");
   var miniPerDay = $("#mini-perday");
 
   var liveEpoch = performance.now();
   var liveBase = cumulativeNow(params);
   var livePerSec = perSecondPreventable(params);
+  var liveMedicalPerSec = medicalPerSecondPreventable(params);
   var introStart = performance.now();
   var introDone = false;
 
   function recomputeLive() {
     liveBase = cumulativeNow(params);
     livePerSec = perSecondPreventable(params);
+    liveMedicalPerSec = medicalPerSecondPreventable(params);
     liveEpoch = performance.now();
     counterRate.textContent = "+" + (livePerSec * 3600).toFixed(1) + "/hr";
     miniPerDay.textContent = fmtInt(livePerSec * 86400);
@@ -109,7 +115,7 @@
     miniPage.textContent = openSecs * livePerSec < 1
       ? (openSecs * livePerSec).toFixed(2)
       : fmtInt(openSecs * livePerSec);
-    miniTotalPage.textContent = fmtInt(openSecs * perSecondTotal);
+    miniMedical.textContent = "$" + fmtInt(openSecs * liveMedicalPerSec);
 
     requestAnimationFrame(frame);
   }
@@ -405,6 +411,7 @@
     function add(b, s, u) { all.push({ b: b, s: s, u: u }); }
     add("Road deaths", DATA.usTrafficDeaths.source, DATA.usTrafficDeaths.sourceUrl);
     add("Share of crashes with driver as critical reason", DATA.humanError.source, DATA.humanError.sourceUrl);
+    add("Medical cost of crash injuries", DATA.crashMedicalCost.source, DATA.crashMedicalCost.sourceUrl);
     add("Waymo safety record", DATA.waymo.source, DATA.waymo.sourceUrl);
     add("Independent check (IIHS)", DATA.waymo.thirdParty.source, DATA.waymo.thirdParty.sourceUrl);
     add("Peer-reviewed comparison", DATA.waymo.peerReviewed.source, DATA.waymo.peerReviewed.sourceUrl);
